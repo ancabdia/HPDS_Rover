@@ -2,6 +2,7 @@ package refactoring;
 
 import com.sun.tools.corba.se.idl.constExpr.Or;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -65,12 +66,9 @@ public class Rover {
 		go(ordersIn(orders));
 	}
 
-	private Order[] ordersIn(String instructions) {
-		Order[] orders = new Order[instructions.length()];
-		for (int i = 0; i < instructions.length(); i++) {
-			orders[i] = Order.of(instructions.charAt(i));
-		}
-		return orders;
+	private Stream<Order> ordersIn(String instructions) {
+		String[] split = instructions.split("");
+		return stream(split).map(s -> Order.of(s.charAt(0)));
 	}
 
 
