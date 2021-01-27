@@ -1,8 +1,12 @@
 package refactoring;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
+import static java.util.Arrays.stream;
 import static refactoring.Rover.Heading.*;
 import static refactoring.Rover.Order.*;
 
@@ -34,7 +38,12 @@ public class Rover {
 	}
 
 	public void go(Order... orders) {
-		execute(orders[0]);
+		Stream<Order> stream = stream(orders);
+		go(stream);
+	}
+
+	private void go(Stream<Order> stream){
+		stream.forEach(this::execute);
 	}
 
 	private void execute(Order order) {
